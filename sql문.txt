@@ -1,0 +1,47 @@
+DROP table tbl_board;
+drop tbl_reply;
+
+create SEQUENCE seq_board;
+   
+  CREATE TABLE "BOOK_EX"."TBL_BOARD" 
+   (	"BNO" NUMBER(10,0), 
+	"TITLE" VARCHAR2(200 BYTE) not null , 
+	"CONTENT" VARCHAR2(200 BYTE)not null, 
+	"WRITER" VARCHAR2(50 BYTE)not null, 
+	"REGDATE" DATE DEFAULT sysdate, 
+	"UPDATEDATE" DATE DEFAULT sysdate
+   );
+    ALTER TABLE "BOOK_EX"."TBL_BOARD" ADD CONSTRAINT "TBL_BOARD_PK" PRIMARY KEY ("BNO");
+   
+
+   
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (1, '안녕하세요', '날이 꽤 춥네요','lee');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (2, '연휴 잘 보내셨나요', '새해 복 많이 받으세요','hong');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (3, '올해는 토끼해입니다.', '검은 토끼해입니다. ','lee');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (4, '올 겨울은', '날이 많이 춥네요','lee');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (5, '요즘 즐겨보는 드라마가 있나요', '저는 더글로리를 봅니다.','park');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (6, '아바타2 재밌나요', '4d로 보면 재미있을 것 같아서요','kim');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (7, '반갑습니다.', '안녕하세요 처음뵙겠습니다.','na');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (8, '좋아하는 스포츠가 있습니까', '저는 배구경기 보는 것을 좋아합니다','lee');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (9, '야구 좋아하시나요', '저는 키움을 좋아합니다','oh');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (10, '저는 여자배구 좋아합니다.', '현대건설팬입니다.','na');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (11, '최근에 본 영화가 있습니까?', '아바타입니다.','na');
+   INSERT INTO tbl_board(bno, title, content, writer) VALUES (12, '바다와 산 중 어느 곳을 좋아합니까', '바다입니다.','na');
+   
+    CREATE TABLE "BOOK_EX"."TBL_REPLY" 
+   (	"RNO" NUMBER(10,0), 
+	"BNO" NUMBER(10,0), 
+	"REPLY" VARCHAR2(1000 BYTE)not null, 
+	"REPLYER" VARCHAR2(50 BYTE)not null, 
+	"REPLYDATE" DATE DEFAULT sysdate, 
+	"UPDATEDATE" DATE DEFAULT sysdate
+   );
+   create SEQUENCE ser_reply;
+   ALTER TABLE "BOOK_EX"."TBL_REPLY" ADD CONSTRAINT "PK_REPLY" PRIMARY KEY ("RNO");
+   alter table tbl_reply add CONSTRAINT fk_reply_board FOREIGN key (bno) REFERENCES tbl_board(bno);
+   
+   insert into tbl_reply(rno, bno, reply, replyer) values(seq_reply.nextval, 1, '그러게요','na');
+   select * from tbl_board;
+	
+
+commit;
